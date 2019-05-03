@@ -23,30 +23,57 @@ public class validaHtml {
 	public static <T> void main(String[] args) throws FileNotFoundException {
 
 		PilhaLista<T> pilha = new PilhaLista<T>();
+		byte inabrfec = 0;
 
 		String auxiliar = "";
 		int i;
 		Scanner arquivo = new Scanner(
-				new File("C:\\Developer\\Project\\estruturadados\\src\\trabalho01\\lerArquivo.html"));
+				new File("C:\\users\\bbf12\\Gilvan.html"));
 		
 		arquivo.useDelimiter("\\<");
 		
 		while (arquivo.hasNext()) {
-			String parte = arquivo.next();
-
-			if (!parte.isEmpty()) {
-				if (parte.indexOf("//") != -1) {
-					i = parte.indexOf(">");
-					auxiliar = parte.substring(0, parte.indexOf(">"));
-					pilha.pop();
-				} else if (parte.indexOf(">") != -1) {
-					pilha.push((T) parte.substring(0, parte.indexOf(">")));
+			String linha = arquivo.next();
+			//Considera se linha não for vazia
+			if (linha.toString().trim().contentEquals("") == false) {
+				if (linha.toString().trim().charAt(0) == '<') {
+					inabrfec = verificaTag(linha.toString().trim().substring(0,buscaPosicao(linha.trim().toString())));
+					if (inabrfec == 0) {
+						pilha.push((T)linha.trim().toString());
+					}
+					if (inabrfec == 1) {
+					
+					}
 				}
-
 			}
-			System.out.println(parte);
+
 		}
 
+	}
+
+	//Verifica se está abrindo uma tag ou fechando.
+	public static byte verificaTag(String axdstaghtm) {
+		if(axdstaghtm.charAt(1) == '/') {
+			return 1; //tag fecha
+		} else {
+			return 0; //tag abre
+		}
+	}
+	//Busca posição do ultimo caractere
+	public static int buscaPosicao(String axdstaghtm) {
+		int indA = 0;
+		int indB = 0;
+		
+		indA = axdstaghtm.lastIndexOf(" ");
+		indB = axdstaghtm.lastIndexOf(">");
+		
+		if (indA > indB) {
+			return indB;
+		} else {
+			return indA;
+		}
+		
+		
 	}
 
 }
