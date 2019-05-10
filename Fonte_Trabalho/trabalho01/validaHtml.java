@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import trabalho01.lista.ListaEncadeada;
+
 /**
  *
  * @author Rodrigo Fernandes e Bruno Fernandes
@@ -16,64 +18,64 @@ import java.util.Scanner;
 public class validaHtml {
 
 	/**
-	 * @param <T>
-	 * @param args
-	 *            the command line arguments
+	 * @param      <T>
+	 * @param args the command line arguments
 	 */
-	public static <T> void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException {
 
-		PilhaLista<T> pilha = new PilhaLista<T>();
+		PilhaLista<String> pilha = new PilhaLista<>();
 		byte inabrfec = 0;
+		ListaEncadeada<String> contador = new ListaEncadeada<>();
+		boolean indMontaTag = false;
 
 		String auxiliar = "";
 		int i;
-		Scanner arquivo = new Scanner(
-				new File("C:\\users\\bbf12\\Gilvan.html"));
-		
-		arquivo.useDelimiter("\\<");
-		
-		while (arquivo.hasNext()) {
-			String linha = arquivo.next();
-			//Considera se linha não for vazia
+		Scanner arquivo = new Scanner(new File("C:\\users\\bbf12\\Gilvan.html"));
+
+		// arquivo.useDelimiter("\\<");
+
+		while (arquivo.hasNextLine()) {
+			String linha = arquivo.nextLine().toLowerCase();
+			// System.out.println(linha.toString());
+			indMontaTag = false;
+			// Considera se linha não for vazia
 			if (linha.toString().trim().contentEquals("") == false) {
 				if (linha.toString().trim().charAt(0) == '<') {
-					inabrfec = verificaTag(linha.toString().trim().substring(0,buscaPosicao(linha.trim().toString())));
-					if (inabrfec == 0) {
-						pilha.push((T)linha.trim().toString());
+					String linhaAux = "";
+					char texto[] = linha.toString().toCharArray();
+					for (char texto2 : texto) {
+						if (texto2 == '<') {
+							indMontaTag = true;
+						}
+						if ((texto2 == '>' || texto2 == ' ') && indMontaTag == true) {
+							linhaAux += ">";
+							indMontaTag = false;
+						}
+						if (indMontaTag == true) {
+							linhaAux += texto2;
+						}
+						if (linhaAux.trim().equals("") == false && indMontaTag == false && linhaAux.charAt(1) != '/') {
+							pilha.push(linhaAux);
+							linhaAux = "";
+						}
+						if (linhaAux.trim().equals("") == false && indMontaTag == false && linhaAux.charAt(1) == '/') {
+							if (linhaAux.trim().replace("/", "").equals(pilha.pop()) == true) {
+
+							} else {
+								throw new RuntimeException("Tag incorreta = " + linhaAux.trim());
+							}
+							linhaAux = "";
+						}
+
 					}
-					if (inabrfec == 1) {
-					
-					}
+
 				}
 			}
 
 		}
+		System.out.println("Executado com sucesso!");
+		System.out.println(pilha.toString());
 
-	}
-
-	//Verifica se está abrindo uma tag ou fechando.
-	public static byte verificaTag(String axdstaghtm) {
-		if(axdstaghtm.charAt(1) == '/') {
-			return 1; //tag fecha
-		} else {
-			return 0; //tag abre
-		}
-	}
-	//Busca posição do ultimo caractere
-	public static int buscaPosicao(String axdstaghtm) {
-		int indA = 0;
-		int indB = 0;
-		
-		indA = axdstaghtm.lastIndexOf(" ");
-		indB = axdstaghtm.lastIndexOf(">");
-		
-		if (indA > indB) {
-			return indB;
-		} else {
-			return indA;
-		}
-		
-		
 	}
 
 }
