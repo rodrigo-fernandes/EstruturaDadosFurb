@@ -121,12 +121,7 @@ public class ListaEncadeada<T> {
 		String str = "";
 
 		while (aux != null) {
-			if (aux == primeiro) {
-				str += aux.getInfo();
-			} else {
-				str += ", " + aux.getInfo();
-			}
-
+			str += aux.getInfo() + ": " + aux.getRepeticoes() + (aux.getRepeticoes() == 1 ? " vez\n" : " vezes\n");
 			aux = aux.getProximo();
 		}
 
