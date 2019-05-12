@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabalho01;
 
 import java.io.File;
@@ -10,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import trabalho01.lista.ListaEncadeada;
-import trabalho01.lista.ListaEstatica;
-import trabalho01.lista.NoLista;
 
 /**
  *
@@ -92,7 +85,6 @@ public class ValidaHtml {
 		System.out.println("--------------------------");
 		System.out.println("Tags e repetições:\n");
 		System.out.println(contador.toString());
-		
 
 	}
 

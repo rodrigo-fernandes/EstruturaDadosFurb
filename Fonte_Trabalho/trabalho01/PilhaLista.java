@@ -1,8 +1,6 @@
 package trabalho01;
 
-import trabalho01.PilhaVaziaException;
 import trabalho01.lista.Lista;
-import trabalho01.lista.ListaEncadeada;
 import trabalho01.lista.NoLista;
 
 /**

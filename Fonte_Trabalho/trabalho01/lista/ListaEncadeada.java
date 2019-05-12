@@ -72,7 +72,7 @@ public class ListaEncadeada<T> {
 
 	public NoLista<T> obterNo(int posicao) throws IndexOutOfBoundsException {
 		if (posicao < 0) {
-			throw new IndexOutOfBoundsException("A posiÃ§Ã£o informada estÃ¡ negativa!");
+			throw new IndexOutOfBoundsException("A posiçãoo informada está negativa!");
 		}
 
 		NoLista<T> aux = primeiro;
@@ -87,16 +87,16 @@ public class ListaEncadeada<T> {
 			aux = aux.getProximo();
 		}
 
-		throw new IndexOutOfBoundsException("A posiÃ§Ã£o informada Ã© maior que o tamanho da lista!");
+		throw new IndexOutOfBoundsException("A posiçãoo informada é maior que o tamanho da lista!");
 	}
 
 	public ListaEncadeada<T> criarSubLista(int inicio, int fim) {
 		if (inicio < 0) {
-			throw new IndexOutOfBoundsException("A posiÃ§Ã£o inicial informada Ã© negativa!");
+			throw new IndexOutOfBoundsException("A posiçãoo inicial informada é negativa!");
 		}
 
 		if (fim > obterComprimento()) {
-			throw new IndexOutOfBoundsException("A posiÃ§Ã£o final informada Ã© maior que o tamanho da lista!");
+			throw new IndexOutOfBoundsException("A posiçãoo final informada é maior que o tamanho da lista!");
 		}
 
 		ListaEncadeada<T> novaLista = new ListaEncadeada<>();
